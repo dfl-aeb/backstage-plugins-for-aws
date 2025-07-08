@@ -30,6 +30,7 @@ import {
   createBackstageCatalogSearchTool,
   createBackstageEntityTool,
   createBackstageTechDocsSearchTool,
+  createBackstageCurrentDocumentSearchTool,
 } from './tools';
 import { DatabaseSessionStore } from './database';
 import { McpService } from './service/McpService';
@@ -81,6 +82,7 @@ export const awsGenAiPlugin = createBackendPlugin({
         toolkit.add(createBackstageEntityTool(catalogApi));
         toolkit.add(createBackstageCatalogSearchTool(discovery, auth));
         toolkit.add(createBackstageTechDocsSearchTool(discovery, auth));
+        toolkit.add(createBackstageCurrentDocumentSearchTool(discovery, auth));
 
         const sessionStore = await DatabaseSessionStore.create({
           database,

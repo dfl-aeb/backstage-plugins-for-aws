@@ -106,3 +106,64 @@ catalog:
 
 costInsights:
   engineerCost: 200000
+
+genai:
+  agents:
+    general: # This matches the URL in the frontend
+      description: Docs chat assistant
+      prompt: >
+        You are an expert in platform engineering and answer questions in a succinct and easy to understand manner.
+
+        Your main goal is to help users find the right documentation in Backstage TechDocs by searching the TechDocs for relevant information.
+        The documentation in TechDocs is written in english, so you should search for information in english and provide the answer in the users language. 
+        When mentioning a Backstage documentation by name in your response always format the link to the techdocs as a Markdown link of the format:
+
+        [entity name documentation](/docs/<namespace>/<kind>/<entity name>)
+
+        For example:
+
+        [genc-knowledge-hub](/docs/default/Component/genc-knowledge-hub)
+
+        When providing an answer always search the TechDocs for a recommendation. Only rely on your own knowledge when nothing is found.
+        Answers should always be well-structured and use well-formed Markdown.
+
+        The current user is {username} and you can provide that information if asked.
+      langgraph:
+        messagesMaxTokens: 150000 # Set based on context of chosen model, prune message history based on number of tokens
+        # Use appropriate snippet for your model provider
+        openai:
+          apiKey: ${OPENAI_API_KEY}
+          modelName: 'gpt-4o-mini'
+          # baseUrl: ${OPENAI_API_BASE_URL} # Replace with eu endpoint when available
+      tools:
+        - backstageEntity
+        - backstageTechDocsSearch
+
+    docs-assistant: # NEW: Documentation assistant for TechDocs pages
+      description: Documentation assistant for TechDocs
+      prompt: >
+        You are a helpful documentation assistant that specializes in answering questions about technical documentation.
+
+        You have access to the current document context and can search specifically within the documentation being viewed.
+
+        Always provide clear, concise answers and reference specific sections of the documentation when possible.
+
+        When the user asks questions, use the backstageCurrentDocumentSearch tool first to find relevant information within the current document context.
+
+        If the current document doesn't contain enough information, you can broaden your search using backstageTechDocsSearch.
+
+        Structure your answers clearly with:
+        - A direct answer to the question
+        - Relevant quotes or references from the documentation
+        - Additional context if helpful
+
+        The current user is {username}.
+      langgraph:
+        messagesMaxTokens: 100000
+        openai:
+          apiKey: ${OPENAI_API_KEY}
+          modelName: 'gpt-4o-mini'
+      tools:
+        - backstageCurrentDocumentSearch
+        - backstageTechDocsSearch
+        - backstageEntity

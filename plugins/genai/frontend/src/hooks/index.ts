@@ -12,3 +12,4 @@
  */
 
 export * from './useChatSession';
+export * from './useTechDocsContext';

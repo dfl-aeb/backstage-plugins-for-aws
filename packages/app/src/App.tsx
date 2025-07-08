@@ -39,7 +39,7 @@ import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { CostInsightsPage } from '@backstage-community/plugin-cost-insights';
 import { costInsightsAwsPlugin } from '@aws/cost-insights-plugin-for-backstage';
-import { AgentChatPage } from '@aws/genai-plugin-for-backstage';
+import { AgentChatPage, TechDocsGenAiAssistant } from '@aws/genai-plugin-for-backstage';
 
 const app = createApp({
   apis,
@@ -124,6 +124,7 @@ export default app.createRoot(
     <OAuthRequestDialog />
     <AppRouter>
       <Root>{routes}</Root>
+      <TechDocsGenAiAssistant />
     </AppRouter>
   </>,
 );

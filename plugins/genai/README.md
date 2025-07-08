@@ -203,6 +203,59 @@ genai:
 
 The tool for invoking agents simply accepts a parameter called `query` which is expected to be a natural language query, and it will respond with the raw text output of the agent.
 
+### TechDocs Documentation Assistant
+
+This plugin includes a specialized documentation assistant that appears as a floating action button on TechDocs pages. This assistant provides context-aware help for the documentation you're currently viewing.
+
+#### Setup
+
+1. Configure a dedicated `docs-assistant` agent in your Backstage configuration:
+
+```yaml
+genai:
+  agents:
+    docs-assistant:
+      description: Documentation assistant for TechDocs
+      prompt: >
+        You are a helpful documentation assistant that specializes in answering questions about technical documentation.
+        
+        You have access to the current document context and can search specifically within the documentation being viewed.
+        
+        Always provide clear, concise answers and reference specific sections of the documentation when possible.
+        
+        When using the backstageCurrentDocumentSearch tool, make sure to provide relevant context about the current entity and document path.
+        
+        The current user is {username}.
+      langgraph:
+        messagesMaxTokens: 100000
+        bedrock:
+          modelId: 'anthropic.claude-3-5-sonnet-20241022-v2:0'
+          region: us-west-2
+      tools:
+        - backstageCurrentDocumentSearch
+        - backstageTechDocsSearch
+        - backstageEntity
+```
+
+1. Add the TechDocs assistant component to your app. Edit `packages/app/src/App.tsx`:
+
+```typescript
+import { TechDocsGenAiAssistant } from '@aws/genai-plugin-for-backstage';
+
+// Add the assistant component anywhere in your app component tree
+// It will automatically show only on TechDocs pages
+export default function App() {
+  return (
+    <AppProvider>
+      {/* ...other components... */}
+      <TechDocsGenAiAssistant />
+    </AppProvider>
+  );
+}
+```
+
+The assistant will automatically appear as a floating chat button on TechDocs pages (`/docs/**` routes) and will provide context-aware assistance for the documentation being viewed.
+
 ## Further reading
 
 You can view the rest of the documentation to understand how to evolve your chat assistant

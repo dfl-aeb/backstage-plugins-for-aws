@@ -12,3 +12,4 @@
  */
 
 export { awsGenAiPlugin, AgentChatPage } from './plugin';
+export * from './components';

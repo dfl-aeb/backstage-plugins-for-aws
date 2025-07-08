@@ -12,3 +12,5 @@
  */
 
 export { AgentPage } from './AgentPage';
+export * from './DocsFloatingChatButton';
+export * from './TechDocsGenAiAssistant';

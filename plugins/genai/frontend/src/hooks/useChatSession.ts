@@ -19,6 +19,7 @@ import { ChatSessionManager } from '../lib';
 
 interface UseChatSessionProps {
   agentName: string;
+  hiddenContext?: string;
 }
 
 interface UseChatSessionResult {
@@ -30,6 +31,7 @@ interface UseChatSessionResult {
 
 export const useChatSession = ({
   agentName,
+  hiddenContext,
 }: UseChatSessionProps): UseChatSessionResult => {
   const agentApi = useApi(agentApiRef);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -53,12 +55,17 @@ export const useChatSession = ({
     async (userMessage: string) => {
       setIsLoading(true);
       try {
-        await chatManager.sendUserMessage(userMessage);
+        // Add hidden context to the message sent to the backend, but not to the UI
+        const messageForBackend = hiddenContext
+          ? `${hiddenContext}\n\nQuestion: ${userMessage}`
+          : userMessage;
+
+        await chatManager.sendUserMessage(messageForBackend, userMessage);
       } finally {
         setIsLoading(false);
       }
     },
-    [chatManager],
+    [chatManager, hiddenContext],
   );
 
   const onClear = useCallback(() => {

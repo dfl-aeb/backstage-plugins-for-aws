@@ -205,9 +205,9 @@ The tool for invoking agents simply accepts a parameter called `query` which is 
 
 ### TechDocs Documentation Assistant
 
-This plugin includes a specialized documentation assistant that appears as a floating action button on TechDocs pages. This assistant provides context-aware help for the documentation you're currently viewing.
+This plugin includes a specialized documentation assistant that provides context-aware help for the documentation you're currently viewing. The assistant automatically detects TechDocs pages and provides relevant assistance without showing debug information.
 
-#### Setup
+#### Quick Setup
 
 1. Configure a dedicated `docs-assistant` agent in your Backstage configuration:
 
@@ -223,8 +223,6 @@ genai:
         
         Always provide clear, concise answers and reference specific sections of the documentation when possible.
         
-        When using the backstageCurrentDocumentSearch tool, make sure to provide relevant context about the current entity and document path.
-        
         The current user is {username}.
       langgraph:
         messagesMaxTokens: 100000
@@ -237,24 +235,32 @@ genai:
         - backstageEntity
 ```
 
-1. Add the TechDocs assistant component to your app. Edit `packages/app/src/App.tsx`:
+1. Add the assistant to your app:
 
 ```typescript
-import { TechDocsGenAiAssistant } from '@aws/genai-plugin-for-backstage';
+// packages/app/src/App.tsx
+import { DocsAssistantIntegration } from '@aws/genai-plugin-for-backstage';
 
-// Add the assistant component anywhere in your app component tree
-// It will automatically show only on TechDocs pages
-export default function App() {
-  return (
-    <AppProvider>
-      {/* ...other components... */}
-      <TechDocsGenAiAssistant />
-    </AppProvider>
-  );
-}
+export default app.createRoot(
+  <>
+    <AlertDisplay />
+    <OAuthRequestDialog />
+    <AppRouter>
+      <Root>{routes}</Root>
+      
+      {/* Documentation Assistant - appears only on TechDocs pages */}
+      <DocsAssistantIntegration variant="sticky" />
+    </AppRouter>
+  </>,
+);
 ```
 
-The assistant will automatically appear as a floating chat button on TechDocs pages (`/docs/**` routes) and will provide context-aware assistance for the documentation being viewed.
+The assistant automatically appears on TechDocs pages and provides context-aware assistance. The following variants are available:
+
+- `sticky` (default): Fixed button on right edge
+- `toolbar`: Top-right toolbar style
+- `chip`: Bottom-right chip with "Ask AI" label  
+- `topbar`: Full-width top bar
 
 ## Further reading
 

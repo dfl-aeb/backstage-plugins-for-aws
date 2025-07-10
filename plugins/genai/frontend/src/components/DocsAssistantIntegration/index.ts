@@ -11,15 +11,4 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { DocsAssistantIntegration } from './DocsAssistantIntegration';
-
-export interface TechDocsGenAiAssistantProps {
-  variant?: 'sticky' | 'toolbar' | 'chip' | 'topbar';
-}
-
-export const TechDocsGenAiAssistant = ({
-  variant = 'sticky',
-}: TechDocsGenAiAssistantProps = {}) => {
-  return <DocsAssistantIntegration variant={variant} />;
-};
+export * from './DocsAssistantIntegration';

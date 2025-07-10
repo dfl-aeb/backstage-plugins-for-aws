@@ -121,11 +121,16 @@ export class ChatSessionManager {
     return [...this.messages];
   }
 
-  async sendUserMessage(userMessage: string): Promise<void> {
+  async sendUserMessage(
+    userMessage: string,
+    displayMessage?: string,
+  ): Promise<void> {
+    const messageToDisplay = displayMessage || userMessage;
+
     this.messages = [
       ...this.messages,
       {
-        payload: userMessage,
+        payload: messageToDisplay,
         type: 'user',
         tools: [],
       },

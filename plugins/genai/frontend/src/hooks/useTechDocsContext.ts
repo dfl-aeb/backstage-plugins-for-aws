@@ -25,9 +25,13 @@ export const useTechDocsContext = (): TechDocsContext => {
 
   const context = useMemo(() => {
     const pathname = location.pathname;
-    
-    // Check if we're on a TechDocs page (usually /docs/namespace/kind/name/documentPath)
-    const techDocsRegex = /^\/docs\/([^/]+)\/([^/]+)\/([^/]+)(?:\/(.*))?/;
+
+    // Check if we're on a TechDocs page
+    // Supports both formats:
+    // 1. /docs/namespace/kind/name/documentPath
+    // 2. /catalog/namespace/kind/name/docs/documentPath
+    const techDocsRegex =
+      /^(?:\/docs\/([^/]+)\/([^/]+)\/([^/]+)(?:\/(.*))?|\/catalog\/([^/]+)\/([^/]+)\/([^/]+)\/docs(?:\/(.*))?)/;
     const match = techDocsRegex.exec(pathname);
 
     if (!match) {
@@ -36,11 +40,25 @@ export const useTechDocsContext = (): TechDocsContext => {
       };
     }
 
-    const [, namespace, kind, name, documentPath] = match;
-    
+    // Handle both URL formats:
+    // Format 1: /docs/namespace/kind/name/documentPath -> groups [1,2,3,4]
+    // Format 2: /catalog/namespace/kind/name/docs/documentPath -> groups [5,6,7,8]
+    let namespace: string;
+    let kind: string;
+    let name: string;
+    let documentPath: string | undefined;
+
+    if (match[1]) {
+      // Format 1: /docs/namespace/kind/name/documentPath
+      [, namespace, kind, name, documentPath] = match;
+    } else {
+      // Format 2: /catalog/namespace/kind/name/docs/documentPath
+      [, , , , , namespace, kind, name, documentPath] = match;
+    }
+
     // Construct the entity reference in the format "kind:namespace/name"
     const entityRef = `${kind}:${namespace}/${name}`;
-    
+
     return {
       isOnTechDocsPage: true,
       entityRef,

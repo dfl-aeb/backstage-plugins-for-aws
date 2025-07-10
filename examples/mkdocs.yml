@@ -1,0 +1,12 @@
+site_name: 'Backstage Plugins for AWS'
+repo_url: https://github.com/dfl-aeb/backstage-plugins-for-aws
+edit_uri: edit/main
+
+nav:
+  - Home: index.md
+  - getting started: getting-started.md
+  - location resources: locating-resources.md
+  - tutorial: tutorial.md
+
+plugins:
+  - techdocs-core

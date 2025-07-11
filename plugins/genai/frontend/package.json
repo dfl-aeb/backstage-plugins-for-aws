@@ -1,5 +1,5 @@
 {
-  "name": "@aws/genai-plugin-for-backstage",
+  "name": "@dfl-aeb/backstage-plugin-aws-genai-frontend",
   "description": "Frontend package for the GenAI AWS plugins for Backstage",
   "version": "0.2.2",
   "repository": {
@@ -22,7 +22,7 @@
       "@aws/genai-plugin-for-backstage-backend",
       "@aws/genai-plugin-for-backstage-common",
       "@aws/genai-plugin-for-backstage-node",
-      "@aws/genai-plugin-for-backstage"
+      "@dfl-aeb/backstage-plugin-aws-genai-frontend"
     ]
   },
   "configSchema": "config.d.ts",

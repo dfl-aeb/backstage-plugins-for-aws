@@ -2735,31 +2735,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@aws/genai-plugin-for-backstage@workspace:^, @aws/genai-plugin-for-backstage@workspace:plugins/genai/frontend":
-  version: 0.0.0-use.local
-  resolution: "@aws/genai-plugin-for-backstage@workspace:plugins/genai/frontend"
-  dependencies:
-    "@aws/genai-plugin-for-backstage-common": "workspace:^"
-    "@backstage/cli": "npm:^0.26.2"
-    "@backstage/core-components": "npm:^0.14.3"
-    "@backstage/core-plugin-api": "npm:^1.9.1"
-    "@backstage/dev-utils": "npm:^1.0.30"
-    "@material-ui/core": "npm:^4.12.2"
-    "@material-ui/icons": "npm:^4.9.1"
-    "@testing-library/dom": "npm:^9.0.0"
-    "@testing-library/jest-dom": "npm:^6.0.0"
-    "@testing-library/react": "npm:^14.0.0"
-    "@testing-library/user-event": "npm:^14.0.0"
-    eventsource-parser: "npm:^2.0.1"
-    msw: "npm:^1.0.0"
-    ts-pattern: "npm:^5.5.0"
-  peerDependencies:
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  languageName: unknown
-  linkType: soft
-
 "@aws/genai-plugin-langgraph-agent-for-backstage@workspace:^, @aws/genai-plugin-langgraph-agent-for-backstage@workspace:plugins/genai/agent-langgraph":
   version: 0.0.0-use.local
   resolution: "@aws/genai-plugin-langgraph-agent-for-backstage@workspace:plugins/genai/agent-langgraph"
@@ -9520,6 +9495,31 @@ __metadata:
   checksum: 10c0/2bfed42af4004be60d4baec21a740ffbdd382ed48e15d5c7d360a349894a54101655a062e80c8c1143f886af3e7f189774f6042b05ebb9a5a3ca94d8e7412ac2
   languageName: node
   linkType: hard
+
+"@dfl-aeb/backstage-plugin-aws-genai-frontend@workspace:^, @dfl-aeb/backstage-plugin-aws-genai-frontend@workspace:plugins/genai/frontend":
+  version: 0.0.0-use.local
+  resolution: "@dfl-aeb/backstage-plugin-aws-genai-frontend@workspace:plugins/genai/frontend"
+  dependencies:
+    "@aws/genai-plugin-for-backstage-common": "workspace:^"
+    "@backstage/cli": "npm:^0.26.2"
+    "@backstage/core-components": "npm:^0.14.3"
+    "@backstage/core-plugin-api": "npm:^1.9.1"
+    "@backstage/dev-utils": "npm:^1.0.30"
+    "@material-ui/core": "npm:^4.12.2"
+    "@material-ui/icons": "npm:^4.9.1"
+    "@testing-library/dom": "npm:^9.0.0"
+    "@testing-library/jest-dom": "npm:^6.0.0"
+    "@testing-library/react": "npm:^14.0.0"
+    "@testing-library/user-event": "npm:^14.0.0"
+    eventsource-parser: "npm:^2.0.1"
+    msw: "npm:^1.0.0"
+    ts-pattern: "npm:^5.5.0"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-router-dom: 6.0.0-beta.0 || ^6.3.0
+  languageName: unknown
+  linkType: soft
 
 "@emotion/babel-plugin@npm:^11.11.0":
   version: 11.11.0
@@ -19986,7 +19986,6 @@ __metadata:
     "@aws/aws-codebuild-plugin-for-backstage": "workspace:^"
     "@aws/aws-codepipeline-plugin-for-backstage": "workspace:^"
     "@aws/cost-insights-plugin-for-backstage": "workspace:^"
-    "@aws/genai-plugin-for-backstage": "workspace:^"
     "@backstage-community/plugin-cost-insights": "npm:^0.12.25"
     "@backstage-community/plugin-github-actions": "npm:^0.6.16"
     "@backstage-community/plugin-tech-radar": "npm:^1.0.0"
@@ -20014,6 +20013,7 @@ __metadata:
     "@backstage/plugin-user-settings": "npm:^0.8.16"
     "@backstage/test-utils": "npm:^1.7.2"
     "@backstage/theme": "npm:^0.6.2"
+    "@dfl-aeb/backstage-plugin-aws-genai-frontend": "workspace:^"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@playwright/test": "npm:^1.32.3"

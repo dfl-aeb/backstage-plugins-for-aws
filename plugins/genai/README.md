@@ -38,7 +38,7 @@ To explore support for other models/providers please raise a GitHub issue.
 
 ## Installation
 
-NOTE: This guide will use the provided LangGraph implementation. To implement your own agent type see [Extending](#extending).
+NOTE: This guide will use the provided LangGraph implementation. To implement your own agent type see [Agent Implementation](#further-reading).
 
 This guide assumes that you are familiar with the general [Getting Started](../../docs/getting-started.md) documentation and have assumes you have an existing Backstage application.
 
@@ -151,7 +151,7 @@ See the [LangGraph agent documentation](./agent-langgraph/) for the full configu
 
 Start the Backstage application:
 
-```
+```shell
 yarn dev
 ```
 
@@ -178,7 +178,7 @@ genai:
         - backstageTechDocsSearch
 ```
 
-Restart Backstage to reload the configuration and try asking the chat assistant a question related to information in the your Backstage catalog, for example "Summarize <component name> from the Backstage catalog".
+Restart Backstage to reload the configuration and try asking the chat assistant a question related to information in your Backstage catalog, for example "Summarize [component name] from the Backstage catalog".
 
 NOTE: After Backstage starts locally there can be a delay indexing the catalog and TechDocs for search. You will not receive search results until the index is built.
 
@@ -205,7 +205,7 @@ The tool for invoking agents simply accepts a parameter called `query` which is 
 
 ### TechDocs Documentation Assistant
 
-This plugin includes a specialized documentation assistant that provides context-aware help for the documentation you're currently viewing. The assistant automatically detects TechDocs pages and provides relevant assistance without showing debug information.
+This plugin includes a specialized documentation assistant that provides context-aware help for the documentation you're currently viewing. The assistant automatically detects TechDocs pages and provides relevant assistance.
 
 #### Quick Setup
 
@@ -261,6 +261,22 @@ The assistant automatically appears on TechDocs pages and provides context-aware
 - `toolbar`: Top-right toolbar style
 - `chip`: Bottom-right chip with "Ask AI" label  
 - `topbar`: Full-width top bar
+
+### UI Customization
+
+To customize agent titles, descriptions, and welcome messages in the chat interface, you need to add `title`, `description`, and `welcomeMessage` to your agent config in `app-config.yaml`:
+
+```yaml
+genai:
+  agents:
+    general:
+      title: "🤖 AI Assistant"
+      description: "Your intelligent platform companion"
+      welcomeMessage: "Hello! Check out our [docs](/docs) for more info!"
+      # ... other agent config
+```
+
+The welcome message supports Markdown formatting.
 
 ## Further reading
 

@@ -1,6 +1,6 @@
 name: Release GenAI Frontend
 
-'on':
+on:
   workflow_dispatch:
 
 jobs:

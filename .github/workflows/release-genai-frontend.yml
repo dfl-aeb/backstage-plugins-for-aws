@@ -2,9 +2,9 @@ name: Release GenAI Frontend
 
 on:
   workflow_dispatch:
-
 jobs:
   release-frontend:
+    if: github.ref == 'refs/heads/aws-genai/techdocs-assistant+ui-metadata'
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +22,7 @@ jobs:
       - name: Build frontend package
         run: |
           cd plugins/genai/frontend
+          yarn tsc
           yarn build
 
       - name: Login to NPM registry

@@ -42,7 +42,7 @@ import { costInsightsAwsPlugin } from '@aws/cost-insights-plugin-for-backstage';
 import {
   AgentChatPage,
   DocsAssistantIntegration,
-} from '@aws/genai-plugin-for-backstage';
+} from '@dfl-aeb/backstage-plugin-aws-genai-frontend';
 
 const app = createApp({
   apis,

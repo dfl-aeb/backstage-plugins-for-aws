@@ -9500,7 +9500,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@dfl-aeb/backstage-plugin-aws-genai-frontend@workspace:plugins/genai/frontend"
   dependencies:
-    "@aws/genai-plugin-for-backstage-common": "workspace:^"
     "@backstage/cli": "npm:^0.26.2"
     "@backstage/core-components": "npm:^0.14.3"
     "@backstage/core-plugin-api": "npm:^1.9.1"

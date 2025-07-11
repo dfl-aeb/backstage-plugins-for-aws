@@ -1,0 +1,35 @@
+name: Release GenAI Frontend
+
+on:
+  workflow_dispatch:
+jobs:
+  release-frontend:
+    if: github.ref == 'refs/heads/aws-genai/techdocs-assistant+ui-metadata'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          cd plugins/genai/frontend
+          yarn install
+
+      - name: Build frontend package
+        run: |
+          cd plugins/genai/frontend
+          yarn build
+
+      - name: Login to NPM registry
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" >> ~/.npmrc
+          echo "always-auth = true" >> ~/.npmrc
+
+      - name: Publish package
+        run: |
+          cd plugins/genai/frontend
+          npm publish

@@ -15,13 +15,12 @@ import { EmptyState, MarkdownContent } from '@backstage/core-components';
 import React, { useEffect, useRef } from 'react';
 
 import { ChatMessage, ToolRecord } from '../types';
-import { Avatar } from '@material-ui/core';
+import { Avatar, makeStyles } from '@material-ui/core';
 import Person from '@material-ui/icons/Person';
 import School from '@material-ui/icons/School';
 import Info from '@material-ui/icons/Info';
 import Error from '@material-ui/icons/Error';
 import { ToolsModal } from './ToolsModal';
-import { makeStyles } from '@material-ui/core';
 import { AgentUIConfig } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({
@@ -121,6 +120,41 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: '#5b2e2e',
     },
   },
+
+  typingIndicator: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+    height: '3.3em', // Match the lineHeight of ChatItemChatText
+    '& span': {
+      display: 'inline-block',
+      animation: '$typingDots 1.5s infinite',
+      fontSize: '1.2em',
+      lineHeight: '1',
+      marginRight: '4px',
+      color: theme.palette.text.secondary,
+    },
+    '& span:nth-child(1)': {
+      animationDelay: '0s',
+    },
+    '& span:nth-child(2)': {
+      animationDelay: '0.3s',
+    },
+    '& span:nth-child(3)': {
+      animationDelay: '0.6s',
+    },
+  },
+
+  '@keyframes typingDots': {
+    '0%, 60%, 100%': {
+      opacity: 0.3,
+      transform: 'translateY(0)',
+    },
+    '30%': {
+      opacity: 1,
+      transform: 'translateY(-4px)',
+    },
+  },
 }));
 
 export interface ChatHistoryComponentProps {
@@ -154,6 +188,15 @@ function getMessageIcon(message: ChatMessage) {
 
   return <School />;
 }
+
+// Typing indicator component
+const TypingIndicator = ({ classes }: { classes: any }) => (
+  <div className={classes.typingIndicator}>
+    <span>•</span>
+    <span>•</span>
+    <span>•</span>
+  </div>
+);
 
 export const ChatHistoryComponent = ({
   messages,
@@ -205,7 +248,7 @@ export const ChatHistoryComponent = ({
           {messages!.length > 0 &&
             messages?.map((message, index) => (
               <div
-                key={index}
+                key={`message-${index}-${message.type}`}
                 className={`${classes.ChatItem} ${getMessageExtraClass(
                   message,
                   classes,
@@ -225,12 +268,11 @@ export const ChatHistoryComponent = ({
                   )}
                 </div>
                 <div className={`${classes.ChatItemChatText}`}>
-                  <MarkdownContent
-                    content={
-                      message.payload.length === 0 ? '...' : message.payload
-                    }
-                    dialect="gfm"
-                  />
+                  {message.payload.length === 0 ? (
+                    <TypingIndicator classes={classes} />
+                  ) : (
+                    <MarkdownContent content={message.payload} dialect="gfm" />
+                  )}
                 </div>
               </div>
             ))}

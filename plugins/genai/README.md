@@ -215,7 +215,9 @@ This plugin includes a specialized documentation assistant that provides context
 genai:
   agents:
     docs-assistant:
-      description: Documentation assistant for TechDocs
+      title: "📚 Documentation Assistant"
+      description: "Documentation assistant for TechDocs"
+      welcomeMessage: "Hello! I can help you understand this documentation. What would you like to know?"
       prompt: >
         You are a helpful documentation assistant that specializes in answering questions about technical documentation.
         

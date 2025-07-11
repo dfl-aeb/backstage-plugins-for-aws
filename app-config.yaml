@@ -140,7 +140,9 @@ genai:
         - backstageTechDocsSearch
 
     docs-assistant: # NEW: Documentation assistant for TechDocs pages
-      description: Documentation assistant for TechDocs
+      title: '📚 Documentation Assistant' # Titel im Modal-Header
+      description: 'Documentation assistant for TechDocs' # Titel im leeren Zustand
+      welcomeMessage: 'Hello! I can help you understand this documentation. What would you like to know?' # Willkommensnachricht
       prompt: >
         You are a helpful documentation assistant that specializes in answering questions about technical documentation.
 

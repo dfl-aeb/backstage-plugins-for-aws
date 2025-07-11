@@ -24,7 +24,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { ChatHistoryComponent } from '../ChatHistoryComponent';
 import { ChatInputComponent } from '../ChatInputComponent';
-import { useChatSession } from '../../hooks';
+import { useChatSession, useAgentMetadata } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({
   dialog: {
@@ -87,6 +87,9 @@ export const DocsChatModal = ({
 }: DocsChatModalProps) => {
   const classes = useStyles();
 
+  // Get agent metadata for title, description, and welcome message
+  const agentMetadata = useAgentMetadata('docs-assistant');
+
   // Prepare hidden context for the LLM
   let hiddenContext: string | undefined;
   if (documentContext?.entityRef) {
@@ -121,7 +124,9 @@ export const DocsChatModal = ({
     >
       <DialogTitle id="docs-chat-dialog-title" className={classes.dialogTitle}>
         <div className={classes.titleContainer}>
-          <Typography variant="h6">Documentation Assistant</Typography>
+          <Typography variant="h6">
+            {agentMetadata.title || 'Techdocs Assistant'}
+          </Typography>
           <div>
             <IconButton
               onClick={handleOpenInNewTab}
@@ -145,6 +150,7 @@ export const DocsChatModal = ({
             className={classes.chatHistory}
             isStreaming={isLoading}
             showInformation={false}
+            agentMetadata={agentMetadata}
           />
 
           <ChatInputComponent
